@@ -1,0 +1,8 @@
+%h1 Bem-vindo(a) ao SocialHub.
+
+%form{methiod: 'post', action: '/signup'}
+ %label{for: 'user'} Usuário:
+ %input{type: 'text'}
+
+ %label{for: 'pass'} Senha:
+ %input{type: 'pass'}

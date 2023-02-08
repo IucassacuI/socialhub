@@ -1,0 +1,29 @@
+%h1 Configurações
+- if defined? saved
+  %p Configurações salvas.
+
+%h2 Conta
+
+%form{method: 'post', action: '/account'}
+  %label{for: 'pass'} Nova Senha:
+  %input{type: 'password', name: 'pass'}
+
+  %button{type: 'submit'} Atualizar
+
+%h2 Instagram
+
+%form{method: 'post', action: '/follow/insta'}
+  %textarea{name: 'users', rows: '5'}= insta.join("\n")
+  %button{type: 'submit'} Atualizar
+
+%h2 Twitter
+
+%form{method: 'post', action: '/follow/twit'}
+  %textarea{name: 'users', rows: '5'}= twit.join("\n")
+  %button{type: 'submit'} Atualizar
+
+%h2 YouTube
+
+%form{method: 'post', action: '/follow/yt'}
+  %textarea{name: 'users', rows: '5'}= yt.join("\n")
+  %button{type: 'submit'} Atualizar

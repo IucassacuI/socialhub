@@ -1,0 +1,21 @@
+%a{href: '/config'} Configurações
+
+%h1 YouTube
+
+- cache['yt'].each do |channel|
+  - channel.each do |title, url|
+    %p
+      %a{href: url}= title
+
+%h1 Twitter
+
+- cache['twit'].each do |usertweets|
+  - usertweets.split("\n").each do |tweet|
+    %p!= tweet
+
+%h1 Instagram
+
+- cache['insta'].each do |post|
+  - post.each_pair do |text, url|
+    %p
+      %a{href: url}= text
