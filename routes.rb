@@ -1,5 +1,5 @@
 require 'sinatra'
-require_relative 'sh.rb'
+require_relative 'sh'
 
 configure do
   enable :sessions
@@ -20,9 +20,9 @@ end
 post '/login' do
   user = params['user']
   pass = params['pass']
-  
+
   redir, success = login(user, pass)
-  
+
   if success
     update(user)
     session['sess'] = SecureRandom.hex 10
@@ -44,20 +44,29 @@ get '/signup' do
   haml :signup
 end
 
-post '/follow/:platform' do |platform|
-  users = params['users']
+post '/update' do
+  insta = params['insta']
+  twit = params['twit']
+  reddit = params['red']
+  yt = params['yt']
+
   user = $sessions[session['sess']]
 
-  change platform, user, users
+  halt 401 if user.nil?
+
+  change user, insta, twit, reddit, yt
   update user
-  haml :config, locals: {saved: true, insta: iusers(user), twit: tusers(user), yt: yusers(user)}
+  redirect '/config?saved=1'
 end
 
 get '/user/*' do
   profile = params['splat'][0]
+
+  halt 404 unless exist(profile)
+
   c = cache(profile)
-    
-  haml :main, locals: {user: profile, cache: c}
+
+  haml :main, locals: { user: profile, cache: c }
 end
 
 get '/logout' do
@@ -68,7 +77,19 @@ end
 
 get '/config' do
   user = $sessions[session['sess']]
-  haml :config, locals: {yt: yusers(user), insta: iusers(user), twit: tusers(user), user: user}
+
+  halt 401 if user.nil?
+
+  saved = !params['saved'].nil?
+
+  haml :config,
+       locals: { saved: saved,
+                 yt: follows(user, :yt),
+                 insta: follows(user, :insta),
+                 twit: follows(user, :twit),
+                 red: follows(user, :red),
+                 user: user
+               }
 end
 
 post '/account' do
