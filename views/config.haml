@@ -1,29 +1,30 @@
 %h1 Configurações
-- if defined? saved
+- if saved
   %p Configurações salvas.
 
 %h2 Conta
 
 %form{method: 'post', action: '/account'}
   %label{for: 'pass'} Nova Senha:
+  %br
   %input{type: 'password', name: 'pass'}
 
   %button{type: 'submit'} Atualizar
 
-%h2 Instagram
+%form{method: 'post', action: '/update'}
+  %h3 Instagram
+  %textarea{name: 'insta', rows: '5'}= insta.join("\n")
 
-%form{method: 'post', action: '/follow/insta'}
-  %textarea{name: 'users', rows: '5'}= insta.join("\n")
-  %button{type: 'submit'} Atualizar
+  %h3 Twitter
+  %textarea{name: 'twit', rows: '5'}= twit.join("\n")
 
-%h2 Twitter
+  %h3 YouTube
+  %textarea{name: 'yt', rows: '5'}= yt.join("\n")
 
-%form{method: 'post', action: '/follow/twit'}
-  %textarea{name: 'users', rows: '5'}= twit.join("\n")
-  %button{type: 'submit'} Atualizar
+  %h3 Reddit
+  %textarea{name: 'red', rows: '5'}= red.join("\n")
 
-%h2 YouTube
+  %br
+  %br
 
-%form{method: 'post', action: '/follow/yt'}
-  %textarea{name: 'users', rows: '5'}= yt.join("\n")
   %button{type: 'submit'} Atualizar
