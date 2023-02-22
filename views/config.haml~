@@ -1,9 +1,0 @@
-%h1 Configurações
-
-%h2 Conta
-
-%form{method: 'post', action: '/account'}
-  %label{for: 'pass'} Nova Senha:
-  %input{type: 'password', name: 'pass'}
-
-  %button{type: 'submit'} Atualizar
